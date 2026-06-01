@@ -3,11 +3,12 @@ from collections import deque
 from math import floor
 
 # !!! SET TO FALSE FOR PLAYER MOVEMENT !!!
-pathfinding = True
+pathfinding = False
 
 pygame.init()
-screen = pygame.display.set_mode((900, 900))
+screen = pygame.display.set_mode((680, 680))
 clock = pygame.time.Clock()
+place = "C:\\Users\\andre\\Downloads\\DATA.txt"
 pygame.display.set_caption("Snake Bot AI") if pathfinding else pygame.display.set_caption("Snake Player")
 
 # initialization stuff
@@ -28,14 +29,14 @@ reset_game()
 
 # this creates the map
 grid = []
-x, y = 40, 40
+x, y = 30, 30
 for _ in range(400):
-    grid.append(pygame.Rect((x, y, 39, 39)))
-    if x < 800:
-        x += 41
+    grid.append(pygame.Rect((x, y, 29, 29)))
+    if x < 600:
+        x += 31
     else:
-        x = 40
-        y += 41
+        x = 30
+        y += 31
 
 def get_neighbors(tile):
     # this gets the neighboring tiles
@@ -356,7 +357,10 @@ while prun:
 
     # Handle death by resetting instead of locking up the app
     if dead:
-        pygame.time.delay(1500) 
+        with open(place, "a") as f:
+            f.write(f"\n{score}{pathfinding}")
+
+        pygame.time.delay(1500)
         reset_game()
 
     timer += 1
